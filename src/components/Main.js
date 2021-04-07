@@ -2,19 +2,7 @@ import editButton from '../images/edit-button.svg';
 import addButton from '../images/add-button.svg';
 import avatar from '../images/avatar.jpeg';
 
-function Main() {
-    function handleEditAvatarClick() {
-        document.querySelector('.popup_type_avatar').classList.add('popup_opened');
-    }
-
-    function handleEditProfileClick() {
-        document.querySelector('.popup_type_profile').classList.add('popup_opened');
-    }
-
-    function handleAddPlaceClick() {
-        document.querySelector('.popup_type_addpic').classList.add('popup_opened');
-    }
-
+function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick }) {
     return(
         <main className="content">
             <section className="profile">
