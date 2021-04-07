@@ -1,0 +1,26 @@
+@import url(./__picture/pictures__picture.css);
+@import url(./__title/pictures__title.css);
+@import url(./__like/pictures__like.css);
+@import url(./__like_active/pictures__like_active.css);
+@import url(./__image/pictures__image.css);
+@import url(./__trash/pictures__trash.css);
+@import url(./__list/pictures__list.css);
+@import url(./__counter/pictures__counter.css);
+@import url(./__box/pictures__box.css);
+.pictures {
+    max-width: calc(1280px - (200px*2));
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 17px;
+    grid-row-gap: 20px;
+    margin: 51px auto 66px auto;
+    padding: 0;
+}
+
+@media screen and (max-width: 1023px) {
+    .pictures {
+        max-width: calc(320px - (19px*2));
+        grid-template-columns: repeat(1, 1fr);
+        margin: 36px auto 48px auto;
+    }
+}
