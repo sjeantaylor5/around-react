@@ -1,6 +1,7 @@
 import closeButton from '../images/Close-button.svg';
 
 function PopupAvatar({ isOpen, onClose }) {
+
     return(
         <div className={`popup popup_type_avatar ${isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__overlay popup__overlay_type_avatar"></div>
