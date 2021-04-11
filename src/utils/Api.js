@@ -1,3 +1,10 @@
+const handleResponse = (res) => {
+    if (!res.ok) {
+      return Promise.reject(new Error("Error!" + res.statusText));
+    }
+    return res.json();
+  }
+
 class Api {
     constructor({ baseUrl, headers }) {
         this._baseUrl = baseUrl;
@@ -9,7 +16,7 @@ class Api {
         return fetch(this._baseUrl + "/cards", {
                 headers: this._headers
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
     // GET https://around.nomoreparties.co/v1/groupId/users/me
@@ -17,7 +24,7 @@ class Api {
         return fetch(this._baseUrl + "/users/me", {
                 headers: this._headers
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
     //POST https://around.nomoreparties.co/v1/groupId/cards
@@ -30,7 +37,7 @@ class Api {
                     link
                 })
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
     //DELETE https://around.nomoreparties.co/v1/groupId/cards/cardId
@@ -39,7 +46,7 @@ class Api {
                 method: "DELETE",
                 headers: this._headers
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
     //PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
@@ -48,7 +55,7 @@ class Api {
                 method: "PUT",
                 headers: this._headers
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
     //DELETE https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
@@ -57,7 +64,7 @@ class Api {
                 method: "DELETE",
                 headers: this._headers
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
 
@@ -71,7 +78,7 @@ class Api {
                     about
                 })
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
 
@@ -84,7 +91,7 @@ class Api {
                     avatar
                 })
             })
-            .then(res => res.ok ? res.json() : Promise.reject(new Error("Error!" + res.statusText)));
+            .then(handleResponse);
     }
 
 
