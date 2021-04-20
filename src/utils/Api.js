@@ -49,23 +49,31 @@ class Api {
             .then(handleResponse);
     }
 
-    //PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
-    addLike(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
         return fetch(this._baseUrl + "/cards/likes/" + cardId, {
-                method: "PUT",
+                method: `${!isLiked ? "PUT" : "DELETE"}`,
                 headers: this._headers
             })
             .then(handleResponse);
     }
 
+    //PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
+    // addLike(cardId) {
+    //     return fetch(this._baseUrl + "/cards/likes/" + cardId, {
+    //             method: "PUT",
+    //             headers: this._headers
+    //         })
+    //         .then(handleResponse);
+    // }
+
     //DELETE https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
-    removeLike(cardId) {
-        return fetch(this._baseUrl + "/cards/likes/" + cardId, {
-                method: "DELETE",
-                headers: this._headers
-            })
-            .then(handleResponse);
-    }
+    // removeLike(cardId) {
+    //     return fetch(this._baseUrl + "/cards/likes/" + cardId, {
+    //             method: "DELETE",
+    //             headers: this._headers
+    //         })
+    //         .then(handleResponse);
+    // }
 
 
     //PATCH https://around.nomoreparties.co/v1/groupId/users/me

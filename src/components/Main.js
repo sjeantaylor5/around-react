@@ -2,8 +2,19 @@ import React from 'react';
 import editButton from '../images/edit-button.svg';
 import addButton from '../images/add-button.svg';
 import Card from './Card';
+import { api } from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick, cards, userInfo, handleCardClick  }) {
+function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick, cards, handleCardClick  }) {
+    const [userInfo] = React.useContext(CurrentUserContext);
+
+    // function handleCardLike(card) {
+    //     const isLiked = card.likes.some(i => i._id === userInfo._id);
+        
+    //     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    //         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    //     });
+    // }
 
     return(
         <main className="content">
@@ -30,6 +41,7 @@ function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileCli
                         card={card}
                         key={card._id}
                         handleCardClick={handleCardClick}
+                        // onCardLike={handleCardLike}
                         />
                     })}
                 </ul>

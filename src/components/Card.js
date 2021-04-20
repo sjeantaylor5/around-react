@@ -1,19 +1,31 @@
 import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, handleCardClick }) {
+function Card({ card, handleCardClick, onCardLike }) {
+    const [userInfo] = React.useContext(CurrentUserContext);
+    const isOwn = card.owner._id === userInfo._id;
+    const isLiked = card.likes.some(i => i._id === userInfo._id);
+
+    const cardLikeButton = (
+      `pictures__like ${isLiked ? 'pictures__like_active' : null}`
+    );
 
     function handleClick() {
         handleCardClick(card);
-      } 
+      };
+    
+    function handleLikeClick() {
+      onCardLike(card);
+    }  
 
     return(
-        <li class="pictures__picture picture" >
-          <button class="pictures__trash" type="button"/>
-            <img  class="pictures__image" src={card.link} alt={card.name} onClick={handleClick} />
-            <h2 class="pictures__title">{card.name}</h2>
-            <div class="pictures__box">
-                <button class="pictures__like" type="button"/>
-                <p class="pictures__counter">{card.likes.length}</p>
+        <li className="pictures__picture picture" >
+          {isOwn ? <button className="pictures__trash" type="button"/> : null}
+            <img  className="pictures__image" src={card.link} alt={card.name} onClick={handleClick} />
+            <h2 className="pictures__title">{card.name}</h2>
+            <div className="pictures__box">
+                <button className={cardLikeButton} type="button" onClick={handleLikeClick}/>
+                <p className="pictures__counter">{card.likes.length}</p>
             </div>
         </li>
     )
