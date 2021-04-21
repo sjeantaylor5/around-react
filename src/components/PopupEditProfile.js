@@ -3,6 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { api } from '../utils/api';
 
 function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
+    const [isLoading, setIsLoading] = React.useState(false);
     const [inputs, setInputs] = React.useState({ name: userInfo.name, description: userInfo.about });
 
     function handleOnChange(e) {
@@ -15,9 +16,12 @@ function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
     function handleSubmit(e) {
         e.preventDefault();
 
+        setIsLoading(true);
+
         api.updateUserInfo(inputs.name, inputs.description).then(res => {
             setUserInfo(res);
             onClose();
+            setIsLoading(false);
         })
     }
 
@@ -27,7 +31,7 @@ function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
         onClose={onClose}
         onSubmit={handleSubmit}
         title='Edit profile'
-        submitName='Save'
+        submitName={isLoading ? 'Saving...' : 'Save'}
         >
             <input
             id='profile-name'

@@ -20,6 +20,7 @@ function App() {
     const [isDeleteOpen, setIsDeletePopupOpen] = React.useState(false);
     const [isImageOpen, setIsImagePopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState({});
+    const [deleteId, setDeleteId] = React.useState('');
     const [userInfo, setUserInfo] = useUserInfo();
     const [cards, setCards] = useCards();
 
@@ -36,13 +37,6 @@ function App() {
       });
     }
 
-    function onDeleteCard(card) {
-      api.removeCard(card._id).then(() => {
-        const newCards = cards.filter((c) => c._id !== card._id)
-        setCards(newCards);
-      });
-    }
-
     return (
         <div className="page">
             <Header />
@@ -53,11 +47,11 @@ function App() {
                   handleEditAvatarClick={() => setIsEditAvatarPopupOpen(true)}
                   handleAddPlaceClick={() => setIsAddPlacePopupOpen(true)}
                   handleEditProfileClick={() => setIsEditProfilePopupOpen(true)}
-                  cards={cards}
-                  setCards={setCards}
+                  handleOpenPopupDelete={() => setIsDeletePopupOpen(true)}
                   handleCardClick={handleCardClick}
                   onCardLike={onCardLike}
-                  onDeleteCard={onDeleteCard}
+                  setDeleteId={setDeleteId}
+                  cards={cards}
                 />
                 <PopupAvatar
                   isOpen={isEditAvatarOpen}
@@ -84,6 +78,9 @@ function App() {
                 <PopupDelete
                   isOpen={isDeleteOpen}
                   onClose={() => setIsDeletePopupOpen(false)}
+                  cards={cards}
+                  setCards={setCards}
+                  deleteId={deleteId}
                 />
               </CurrentUserContext.Provider>
               </Route>

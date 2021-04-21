@@ -3,22 +3,26 @@ import { api } from '../utils/api';
 import PopupWithForm from './PopupWithForm';
 
 function PopupAddCard({ isOpen, onClose, cards, setCards }) {
+    const [isLoading, setIsLoading] = React.useState(false);
     const [inputs, setInputs] = React.useState({ name: '', link: '' });
-
-    function handleAddCardSubmit(e) {
-        e.preventDefault();
-
-        api.addCard(inputs.name, inputs.link).then(newCard => {
-            setCards([newCard, ...cards]);
-            setInputs({ name: '', link: '' });
-            onClose();
-        });
-    }
 
     function handleOnChange(e) {
         setInputs({
             ...inputs,
             [e.target.name]: e.target.value
+        });
+    }
+
+    function handleAddCardSubmit(e) {
+        e.preventDefault();
+
+        setIsLoading(true);
+
+        api.addCard(inputs.name, inputs.link).then(newCard => {
+            setCards([newCard, ...cards]);
+            setInputs({ name: '', link: '' });
+            onClose();
+            setIsLoading(false);
         });
     }
 
@@ -28,7 +32,7 @@ function PopupAddCard({ isOpen, onClose, cards, setCards }) {
         onClose={onClose}
         onSubmit={handleAddCardSubmit}
         title='New Place'
-        submitName='Create'
+        submitName={isLoading ? 'Saving...' : 'Create'}
         >
             <input
             id='pic-title'

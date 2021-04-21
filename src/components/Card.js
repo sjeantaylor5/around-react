@@ -1,7 +1,7 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, handleCardClick, onCardLike, onDeleteCard }) {
+function Card({ card, handleCardClick, onCardLike, handleOpenPopupDelete, setDeleteId }) {
     const userInfo = React.useContext(CurrentUserContext);
     const isOwn = card.owner._id === userInfo._id;
     const isLiked = card.likes.some(i => i._id === userInfo._id);
@@ -19,7 +19,8 @@ function Card({ card, handleCardClick, onCardLike, onDeleteCard }) {
     }
 
     function handleDeleteClick() {
-      onDeleteCard(card);
+      setDeleteId(card._id);
+      handleOpenPopupDelete(card);
     }
 
     return(
