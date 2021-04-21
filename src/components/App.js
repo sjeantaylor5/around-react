@@ -20,7 +20,7 @@ function App() {
     const [isDeleteOpen, setIsDeletePopupOpen] = React.useState(false);
     const [isImageOpen, setIsImagePopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState({});
-    const userInfo = useUserInfo();
+    const [userInfo, setUserInfo] = useUserInfo();
     const [cards, setCards] = useCards();
 
     function handleCardClick(card) {
@@ -37,7 +37,10 @@ function App() {
     }
 
     function onDeleteCard(card) {
-      api.removeCard(card._id).then(console.log(card));
+      api.removeCard(card._id).then(() => {
+        const newCards = cards.filter((c) => c._id !== card._id)
+        setCards(newCards);
+      });
     }
 
     return (
@@ -63,6 +66,8 @@ function App() {
                 <PopupEditProfile
                   isOpen={isEditProfileOpen}
                   onClose={() => setIsEditProfilePopupOpen(false)}
+                  userInfo={userInfo}
+                  setUserInfo={setUserInfo}
                 />
                 <PopupAddCard
                   isOpen={isAddPlaceOpen}

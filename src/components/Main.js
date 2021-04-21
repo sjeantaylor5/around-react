@@ -5,7 +5,7 @@ import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick, cards, handleCardClick, onCardLike, onDeleteCard  }) {
-    const [userInfo] = React.useContext(CurrentUserContext);
+    const userInfo = React.useContext(CurrentUserContext);
 
     return(
         <main className="content">
