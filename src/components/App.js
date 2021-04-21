@@ -29,11 +29,15 @@ function App() {
     }
 
     function onCardLike(card) {
-      const isLiked = card.likes.some(i => i._id === userInfo._id);
+      const isLiked = card.likes.some(i => i._id === userInfo[0]._id);
       
       api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       });
+    }
+
+    function onDeleteCard(card) {
+      api.removeCard(card._id).then(console.log(card));
     }
 
     return (
@@ -50,6 +54,7 @@ function App() {
                   setCards={setCards}
                   handleCardClick={handleCardClick}
                   onCardLike={onCardLike}
+                  onDeleteCard={onDeleteCard}
                 />
                 <PopupAvatar
                   isOpen={isEditAvatarOpen}

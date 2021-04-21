@@ -4,7 +4,7 @@ import addButton from '../images/add-button.svg';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick, cards, handleCardClick, onCardLike  }) {
+function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileClick, cards, handleCardClick, onCardLike, onDeleteCard  }) {
     const [userInfo] = React.useContext(CurrentUserContext);
 
     return(
@@ -33,6 +33,7 @@ function Main({ handleAddPlaceClick, handleEditAvatarClick, handleEditProfileCli
                         key={card._id}
                         handleCardClick={handleCardClick}
                         onCardLike={onCardLike}
+                        onDeleteCard={onDeleteCard}
                         />
                     })}
                 </ul>
