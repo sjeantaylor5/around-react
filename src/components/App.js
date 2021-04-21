@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useCards, useUserInfo } from '../utils/utils';
+import { api } from '../utils/api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -10,7 +11,6 @@ import PopupEditProfile from './PopupEditProfile';
 import PopupAddCard from './PopupAddCard';
 import PopupAvatar from './PopupAvatar';
 import PopupDelete from './PopupDelete';
-import { api } from '../utils/api';
 
 function App() {
 
@@ -29,7 +29,7 @@ function App() {
     }
 
     function onCardLike(card) {
-      const isLiked = card.likes.some(i => i._id === userInfo[0]._id);
+      const isLiked = card.likes.some(i => i._id === userInfo._id);
       
       api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -62,6 +62,7 @@ function App() {
                 <PopupAvatar
                   isOpen={isEditAvatarOpen}
                   onClose={() => setIsEditAvatarPopupOpen(false)}
+                  setUserInfo={setUserInfo}
                 />
                 <PopupEditProfile
                   isOpen={isEditProfileOpen}
@@ -72,6 +73,8 @@ function App() {
                 <PopupAddCard
                   isOpen={isAddPlaceOpen}
                   onClose={() => setIsAddPlacePopupOpen(false)}
+                  cards={cards}
+                  setCards={setCards}
                 />
                 <ImagePopup
                   isOpen={isImageOpen}

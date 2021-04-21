@@ -11,7 +11,6 @@ class Api {
         this._headers = headers;
     }
 
-    // GET https://around.nomoreparties.co/v1/groupId/cards
     getCardList() {
         return fetch(this._baseUrl + "/cards", {
                 headers: this._headers
@@ -19,7 +18,6 @@ class Api {
             .then(handleResponse);
     }
 
-    // GET https://around.nomoreparties.co/v1/groupId/users/me
     getUserInfo() {
         return fetch(this._baseUrl + "/users/me", {
                 headers: this._headers
@@ -27,8 +25,7 @@ class Api {
             .then(handleResponse);
     }
 
-    //POST https://around.nomoreparties.co/v1/groupId/cards
-    addCard({ name, link }) {
+    addCard(name, link) {
         return fetch(this._baseUrl + "/cards", {
                 method: "POST",
                 headers: this._headers,
@@ -40,7 +37,6 @@ class Api {
             .then(handleResponse);
     }
 
-    //DELETE https://around.nomoreparties.co/v1/groupId/cards/cardId
     removeCard(cardId) {
         return fetch(this._baseUrl + "/cards/" + cardId, {
                 method: "DELETE",
@@ -57,8 +53,7 @@ class Api {
             .then(handleResponse);
     }
 
-    //PATCH https://around.nomoreparties.co/v1/groupId/users/me
-    updateUserInfo({ name, about }) {
+    updateUserInfo(name, about) {
         return fetch(this._baseUrl + "/users/me", {
                 method: "PATCH",
                 headers: this._headers,
@@ -70,14 +65,12 @@ class Api {
             .then(handleResponse);
     }
 
-
-    //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
-    setUserAvatar({ avatar }) {
+    setUserAvatar(link) {
         return fetch(this._baseUrl + "/users/me/avatar", {
                 method: "PATCH",
                 headers: this._headers,
                 body: JSON.stringify({
-                    avatar
+                    avatar: link
                 })
             })
             .then(handleResponse);

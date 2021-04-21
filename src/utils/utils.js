@@ -1,8 +1,6 @@
 import React from 'react';
 import { api } from './api'
 
-// Function set up to get the user info as well as prepping for setting it in the next project.
-
 function useUserInfo() {
     const [userInfo, setUserInfo] = React.useState({
         name: '',

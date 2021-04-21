@@ -15,8 +15,7 @@ function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        api.updateUserInfo(inputs.name, inputs.description)
-        .then(res => {
+        api.updateUserInfo(inputs.name, inputs.description).then(res => {
             setUserInfo(res);
             onClose();
         })
