@@ -7,7 +7,7 @@ function Card({ card, handleCardClick, onCardLike }) {
     const isLiked = card.likes.some(i => i._id === userInfo._id);
 
     const cardLikeButton = (
-      `pictures__like ${isLiked ? 'pictures__like_active' : null}`
+      `pictures__like ${isLiked ? 'pictures__like_active' : 'pictures__like'}`
     );
 
     function handleClick() {
