@@ -1,5 +1,4 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useCards, useUserInfo } from '../utils/utils';
 import { api } from '../utils/api';
@@ -7,10 +6,10 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import PopupEditProfile from './PopupEditProfile';
-import PopupAddCard from './PopupAddCard';
-import PopupAvatar from './PopupAvatar';
-import PopupDelete from './PopupDelete';
+import EditProfilePopup from './EditProfilePopup';
+import AddPlacePopup from './AddPlacePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import DeletePopup from './DeletePopup';
 
 function App() {
 
@@ -40,8 +39,6 @@ function App() {
     return (
         <div className="page">
             <Header />
-              <Switch>
-              <Route exact path='/'>
               <CurrentUserContext.Provider value={userInfo}>
                 <Main
                   handleEditAvatarClick={() => setIsEditAvatarPopupOpen(true)}
@@ -53,18 +50,18 @@ function App() {
                   setDeleteId={setDeleteId}
                   cards={cards}
                 />
-                <PopupAvatar
+                <EditAvatarPopup
                   isOpen={isEditAvatarOpen}
                   onClose={() => setIsEditAvatarPopupOpen(false)}
                   setUserInfo={setUserInfo}
                 />
-                <PopupEditProfile
+                <EditProfilePopup
                   isOpen={isEditProfileOpen}
                   onClose={() => setIsEditProfilePopupOpen(false)}
                   userInfo={userInfo}
                   setUserInfo={setUserInfo}
                 />
-                <PopupAddCard
+                <AddPlacePopup
                   isOpen={isAddPlaceOpen}
                   onClose={() => setIsAddPlacePopupOpen(false)}
                   cards={cards}
@@ -75,7 +72,7 @@ function App() {
                   card={selectedCard}
                   onClose={() => setIsImagePopupOpen(false)}
                 />
-                <PopupDelete
+                <DeletePopup
                   isOpen={isDeleteOpen}
                   onClose={() => setIsDeletePopupOpen(false)}
                   cards={cards}
@@ -83,8 +80,6 @@ function App() {
                   deleteId={deleteId}
                 />
               </CurrentUserContext.Provider>
-              </Route>
-              </Switch>
             <Footer />
         </div>
     );

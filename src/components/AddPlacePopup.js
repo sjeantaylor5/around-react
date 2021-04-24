@@ -1,10 +1,10 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
 import { api } from '../utils/api';
+import PopupWithForm from './PopupWithForm';
 
-function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
+function AddPlacePopup({ isOpen, onClose, cards, setCards }) {
     const [isLoading, setIsLoading] = React.useState(false);
-    const [inputs, setInputs] = React.useState({ name: userInfo.name, description: userInfo.about });
+    const [inputs, setInputs] = React.useState({ name: '', link: '' });
 
     function handleOnChange(e) {
         setInputs({
@@ -13,57 +13,56 @@ function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
         });
     }
 
-    function handleSubmit(e) {
+    function handleAddCardSubmit(e) {
         e.preventDefault();
 
         setIsLoading(true);
 
-        api.updateUserInfo(inputs.name, inputs.description).then(res => {
-            setUserInfo(res);
+        api.addCard(inputs.name, inputs.link).then(newCard => {
+            setCards([newCard, ...cards]);
+            setInputs({ name: '', link: '' });
             onClose();
             setIsLoading(false);
-        })
+        });
     }
 
     return(
         <PopupWithForm
         isOpen={isOpen}
         onClose={onClose}
-        onSubmit={handleSubmit}
-        title='Edit profile'
-        submitName={isLoading ? 'Saving...' : 'Save'}
+        onSubmit={handleAddCardSubmit}
+        title='New Place'
+        submitName={isLoading ? 'Saving...' : 'Create'}
         >
             <input
-            id='profile-name'
+            id='pic-title'
             className="popup__input"
             type="text"
-            placeholder='Name'
+            placeholder='Title'
             name="name"
             required
-            maxLength='40'
-            minLength='2'
+            maxLength='30'
+            minLength='1'
             value={inputs.name}
             onChange={handleOnChange}
             />
             <span
-            id='profile-name-error'
+            id='pic-title-error'
             className="popup__error"
             />
 
             <input
-            id='profile-text'
+            id='pic-url'
             className="popup__input"
-            type="text"
-            placeholder='About me'
-            name="description"
+            type="url"
+            placeholder='Image link'
+            name="link"
             required
-            maxLength='200'
-            minLength='2'
-            value={inputs.description}
+            value={inputs.link}
             onChange={handleOnChange}
             />
             <span
-            id='profile-text-error'
+            id='pic-url-error'
             className="popup__error"
             />
 
@@ -71,4 +70,4 @@ function PopupEditProfile({ isOpen, onClose, userInfo, setUserInfo }) {
     );
 }
 
-export default PopupEditProfile;
+export default AddPlacePopup;

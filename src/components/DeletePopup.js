@@ -3,7 +3,7 @@ import closeButton from '../images/Close-button.svg';
 import Popup from './Popup';
 import { api } from '../utils/api';
 
-function PopupDelete({ isOpen, onClose, cards, setCards, deleteId }) {
+function DeletePopup({ isOpen, onClose, cards, setCards, deleteId }) {
     const [isLoading, setIsLoading] = React.useState(false);
     
     function handleDeleteCard() {
@@ -28,4 +28,4 @@ function PopupDelete({ isOpen, onClose, cards, setCards, deleteId }) {
     );
 }
 
-export default PopupDelete;
+export default DeletePopup;
